@@ -6,10 +6,26 @@ function App() {
   //로그인 여부 판단
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
+
+  const refreshUser = () => {
+    const user = authService.currentUser;
+    setUserObj({
+      displayName: user.displayName,
+      uid: user.uid,
+      updateProfile: (args) => user.updateProfile(args),
+    });
+    // setUserObj(Object.assign({}, user));
+  };
+
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        setUserObj(user);
+        setUserObj({
+          displayName: user.displayName,
+          uid: user.uid,
+          updateProfile: (args) => user.updateProfile(args),
+        });
+        // setUserObj(user);
       }
       setInit(true);
     });
@@ -17,7 +33,11 @@ function App() {
   return (
     <>
       {init ? (
-        <AppRouter userObj={userObj} isLoggedIn={Boolean(userObj)} />
+        <AppRouter
+          userObj={userObj}
+          refreshUser={refreshUser}
+          isLoggedIn={Boolean(userObj)}
+        />
       ) : (
         'Initializing...'
       )}
