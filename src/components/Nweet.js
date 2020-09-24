@@ -6,6 +6,11 @@ import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 const Nweet = ({ nweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
   const [newNweet, setNewNweet] = useState(nweetObj.text);
+  const [imageOpen, setImageOpen] = useState(false);
+
+  const toggleImage = () => {
+    setImageOpen((prev) => !prev);
+  };
 
   const onDeleteClick = async () => {
     const ok = window.confirm('Are you sure you want to delete this?');
@@ -64,7 +69,11 @@ const Nweet = ({ nweetObj, isOwner }) => {
         <>
           <h4>{nweetObj.text}</h4>
           {nweetObj.attachmentUrl && (
-            <img src={nweetObj.attachmentUrl} alt={nweetObj.text} />
+            <img
+              src={nweetObj.attachmentUrl}
+              alt={nweetObj.text}
+              onClick={toggleImage}
+            />
           )}
           {isOwner && (
             <div className="nweet__actions">
@@ -74,6 +83,12 @@ const Nweet = ({ nweetObj, isOwner }) => {
               <span onClick={toggleEditing}>
                 <FontAwesomeIcon icon={faPencilAlt} />
               </span>
+            </div>
+          )}
+          {imageOpen && nweetObj.attachmentUrl && (
+            <div className="modalImage" onClick={toggleImage}>
+              <img src={nweetObj.attachmentUrl} alt={nweetObj.text} />
+              <span>Click anywhere to close image.</span>
             </div>
           )}
         </>

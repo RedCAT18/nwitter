@@ -19,7 +19,7 @@ const Navigation = ({ userObj }) => (
             marginLeft: 10,
             display: 'flex',
             flexDirection: 'column',
-            alighItems: 'center',
+            alignItems: 'center',
             fontSize: 12,
           }}
         >
