@@ -1,3 +1,3 @@
-# Twitter clone coding w react and firebase
+## Twitter clone coding w react and firebase
 
-## https://RedCAT18.github.io/nwitter
+### https://RedCAT18.github.io/nwitter
